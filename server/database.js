@@ -85,10 +85,14 @@ function convertQuery(sql) {
   return sql.replace(/\?/g, () => `$${index++}`);
 }
 
+let isInitialized = false;
+
 // --- AUTO INITIALIZATION FOR POSTGRES ---
 export async function initDb() {
+  if (isInitialized) return;
   if (!usePostgres) {
     console.log('SQLite database initialized locally.');
+    isInitialized = true;
     return;
   }
 
@@ -309,12 +313,15 @@ export async function initDb() {
           }
         }
       }
-      console.log('Supabase Postgres database seeded successfully.');
+      isInitialized = true;
+      console.log('Supabase Postgres database initialization completed.');
     } else {
+      isInitialized = true;
       console.log('Postgres database schema is intact.');
     }
   } catch (error) {
     console.error('Postgres schema initialization failed:', error);
+    throw error;
   } finally {
     client.release();
   }

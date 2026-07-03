@@ -55,6 +55,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Database Auto-Initialization Middleware (ensures tables exist before query execution)
+app.use(async (req, res, next) => {
+  try {
+    await initDb();
+    next();
+  } catch (err) {
+    console.error('Database initialization failed in middleware:', err);
+    res.status(500).json({ error: 'Database failed to initialize: ' + err.message });
+  }
+});
+
 // Logger middleware
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
