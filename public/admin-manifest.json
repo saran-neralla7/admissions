@@ -1,0 +1,25 @@
+{
+  "name": "GVP Admissions Admin Portal",
+  "short_name": "GVP Admin",
+  "description": "Administrator management portal for Gayatri Vidya Parishad student admissions data collection.",
+  "start_url": "/gvpadmin",
+  "scope": "/gvpadmin",
+  "display": "standalone",
+  "background_color": "#0d253f",
+  "theme_color": "#0d253f",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/gvpcdpgc-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/gvpcdpgc-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

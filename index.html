@@ -11,7 +11,22 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="GVP Admissions" />
     <link rel="apple-touch-icon" href="/gvpcdpgc-logo.png" />
-    <link rel="manifest" href="/manifest.json" />
+    <script>
+      (function() {
+        const isAdmin = window.location.pathname.startsWith('/gvpadmin');
+        const link = document.createElement('link');
+        link.rel = 'manifest';
+        link.id = 'pwa-manifest';
+        link.href = isAdmin ? '/admin-manifest.json' : '/manifest.json';
+        document.head.appendChild(link);
+        
+        if (isAdmin) {
+          document.title = "GVP Admissions Admin Portal";
+          const appleTitle = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+          if (appleTitle) appleTitle.setAttribute('content', 'GVP Admin');
+        }
+      })();
+    </script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,10 +39,14 @@
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
     <script>
-      // Register custom service worker for PWA
+      // Register custom service worker for PWA based on route scope
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
+          const isAdmin = window.location.pathname.startsWith('/gvpadmin');
+          const swPath = isAdmin ? '/sw-admin.js' : '/sw.js';
+          const options = isAdmin ? { scope: '/gvpadmin' } : { scope: '/' };
+          
+          navigator.serviceWorker.register(swPath, options)
             .then(reg => console.log('Service Worker registered successfully:', reg.scope))
             .catch(err => console.log('Service Worker registration failed:', err));
         });
