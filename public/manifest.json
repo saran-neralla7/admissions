@@ -1,0 +1,23 @@
+{
+  "short_name": "GVP Admissions",
+  "name": "GVP Student Admission Data Collection Portal",
+  "icons": [
+    {
+      "src": "/gvpcdpgc-logo.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/gvpcdpgc-logo.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#0b57d0",
+  "display": "standalone",
+  "orientation": "portrait"
+}
